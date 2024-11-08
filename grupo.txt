@@ -1,0 +1,14 @@
+Grupo #7 - Paralelo 101 presencial/definido en clase
+Integrantes:
+Ricardo Asanza
+Gilmar Muñoz
+Ricardo Murillo -Lider
+
+El lider fue escogido porque fue quien tuvo la iniciativa de armar el equipo de trabajo
+Ricardo Asanza realizo el punto 2
+Ricardo Murillo realizo el punto 1
+Gilmar Muñoz realizo el makefile
+
+
+
+
