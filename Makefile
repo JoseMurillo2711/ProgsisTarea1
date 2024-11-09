@@ -1,37 +1,24 @@
-# Definicion de variables
-CC = gcc                # Compilador
-CFLAGS = -Wall -g       # Opciones de compilacion
-ASMFLAGS = -S           # Opcion para generar codigo ensamblador
-TARGET = program        # Nombre del ejecutable final
+TARGET = programa
 
-# Archivos fuente y encabezado
-SRC = main.c calculos.c datos.c
-OBJT = $(SRC:.c=.o)      # Archivos objeto (.o) generados a partir de los .c
-ASMB = $(SRC:.c=.s)      # Archivos ensamblador (.s) generados a partir de los .c
+SRCS = main.c auth.c calculos.c datos.c
 
-# Regla por defecto: compilar el ejecutable
+HEADERS = auth.h formula.h
+
+CC = gcc
+CFLAGS = -Wall -Wextra -g
+
+OBJS = $(SRCS:.c=.o)
+
 all: $(TARGET)
 
-# Compilar y enlazar el ejecutable
-$(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-# Regla para generar archivos objeto (.o) y ensamblador (.s) de cada archivo fuente
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@   # Compilar a .o
-	$(CC) $(ASMFLAGS) $< -o $(@:.o=.s) # Generar .s a partir del mismo archivo .c
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Regla para verificar dependencias de los encabezados
--include $(SRC:.c=.d)
-
-# Generacion de archivos de dependencia (.d) para encabezados
-%.d: %.c
-	$(CC) -MM $< > $@               # Crear el archivo de dependencias .d
-
-# Limpiar archivos compilados
 clean:
-	rm -f $(OBJ) $(ASM) $(TARGET) $(SRC:.c=.d)
+	rm -f $(OBJS) $(TARGET)
 
-# Limpiar todos los archivos generados
-mrproper: clean
-	rm -f $(TARGET)
+cleanall: clean
+	rm -f bitacora.txt

@@ -1,11 +1,44 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "formula.h"
+#include "auth.h"
+
 
 int main() {
     int figura;
     int opcion = 1;
     float superficie, volumen;
     float area, perimetro;
+
+    char usuario[MAX_USERNAME_LENGTH], clave[MAX_PASSWORD_LENGTH];
+    int intento = 3;
+
+    while (intento) {
+
+        printf("Ingrese su usuario: ");
+        scanf("%s", usuario);
+        printf("Ingrese su clave: ");
+        scanf("%s", clave);
+    
+
+        if (autenticarUsuario(usuario, clave)) {
+            printf("Autenticación exitosa\n");
+            registrarBitacora(usuario, "Ingreso exitoso al sistema");
+            break;
+        } else {
+            printf("Autenticación fallida. Intente de nuevo.\n");
+            registrarBitacora(usuario, "Ingreso fallido usuario/clave erróneo");
+            intento--;
+
+            if (intento > 0) {
+                printf("Intentos restantes: %d\n", intento);
+            } else {
+                printf("Se han agotado los intentos. El sistema se cerrará.\n");
+                return 0;
+            }
+        }
+    }
 
     while (opcion) {
         mostrarOpciones();
@@ -19,6 +52,7 @@ int main() {
                 superficie = superficieCubo(lado);
                 volumen = volumenCubo(lado);
                 mostrarResultadosFiguras(superficie, volumen);
+                registrarBitacora(usuario, "Cubo");
                 break;
             }
 
@@ -33,6 +67,7 @@ int main() {
                 superficie = superficieCuboide(largo, ancho, altura);
                 volumen = volumenCuboide(largo, ancho, altura);
                 mostrarResultadosFiguras(superficie, volumen);
+                registrarBitacora(usuario, "Cuboide");
                 break;
             }
             case 3: {
@@ -44,6 +79,7 @@ int main() {
                 superficie = superficieCilindro(radio, altura);
                 volumen = volumenCilindro(radio, altura);
                 mostrarResultadosFiguras(superficie, volumen);
+                registrarBitacora(usuario, "Cilindro");
                 break;
             }
 
@@ -54,6 +90,7 @@ int main() {
                 superficie = superficieEsfera(radio);
                 volumen = volumenEsfera(radio);
                 mostrarResultadosFiguras(superficie, volumen);
+                registrarBitacora(usuario, "Esfera");
                 break;
             }
 
@@ -66,6 +103,7 @@ int main() {
                 superficie = superficieCono(radio, altura);
                 volumen = volumenCono(radio, altura);
                 mostrarResultadosFiguras(superficie, volumen);
+                registrarBitacora(usuario, "Cono");
                 break;
             }
             case 6: {
@@ -77,6 +115,7 @@ int main() {
                 area = areaTriangulo(base, altura);
                 perimetro = perimetroTriangulo(lado1, lado2, lado3);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Triangulo");
                 break;
             }
             case 7: {
@@ -88,6 +127,7 @@ int main() {
                 area = areaParalelogramo(base, altura);
                 perimetro = perimetroParalelogramo(base, lado);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Paralelogramo");
                 break;
             }
             case 8: {
@@ -97,6 +137,7 @@ int main() {
                 area = areaCuadrado(lado);
                 perimetro = perimetroCuadrado(lado);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Cuadrado");
                 break;
             }
             case 9: {
@@ -106,6 +147,7 @@ int main() {
                 area = areaRectangulo(base, altura);
                 perimetro = perimetroRectangulo(base, altura);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Rectángulo");
                 break;
             }
             case 10: {
@@ -117,6 +159,7 @@ int main() {
                 area = areaRombo(diagonal1, diagonal2);
                 perimetro = perimetroRombo(lado);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Rombo");
                 break;
             }
             case 11: {
@@ -128,6 +171,7 @@ int main() {
                 area = areaTrapecio(baseMayor, baseMenor, altura);
                 perimetro = perimetroTrapecio(lado1, lado2, baseMayor, baseMenor);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Trapecio");
                 break;
             }
             case 12: {
@@ -137,6 +181,7 @@ int main() {
                 area = areaCirculo(radio);
                 perimetro = perimetroCirculo(radio);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Círculo");
                 break;
             }
             case 13: {
@@ -147,6 +192,7 @@ int main() {
                 area = areaPoligonoRegular(lado, numeroLados, apotema);
                 perimetro = perimetroPoligonoRegular(lado, numeroLados);
                 mostrarResultadosFiguras2D(area, perimetro);
+                registrarBitacora(usuario, "Polígono regular");
                 break;
             }
             default:

@@ -1,0 +1,4 @@
+2024/11/08: JOSE - Ingreso fallido usuario/clave erróneo
+2024/11/08: JOSE - Ingreso exitoso al sistema
+2024/11/08: JOSE - Cubo
+2024/11/08: pepe - Ingreso fallido usuario/clave erróneo
